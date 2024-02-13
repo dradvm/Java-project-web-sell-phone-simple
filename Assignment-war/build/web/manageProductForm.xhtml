@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="resources/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+    </h:head>
+    <h:body>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="resources/js/bootstrap.bundle.min.js"
+        ></script>
+        <script>
+            import {Carousel, initMDB, Input } from "mdb-ui-kit";
+
+            initMDB({Carousel, Input});
+        </script>
+
+        <ui:include src="navbar.xhtml" />
+        <div class="my-5"></div>
+        <h2 class="container d-flex justify-content-around">Product Form</h2>
+        <h:form class="container mt-5" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-6">
+                        <b:label value="Product Name"/>
+                        <b:inputText value="#{productManageMB.product.productName}" id="productName"/>
+                        <b:message for="productName"/>
+                    </div>
+                    <div class="col-6">
+                        <b:label value="Product Descriptions"/>
+                        <b:inputText value="#{productManageMB.product.productDescriptions}" id="productDescriptions"/>
+                        <b:message for="productDescriptions"/>
+                    </div>
+                    <div class="col-6">
+                        <b:label value="Product Type"/>
+                        <b:inputText value="#{productManageMB.product.productType}" id="productType"/>
+                        <b:message for="productType"/>
+                    </div>
+                    <div class="col-6">
+                        <b:label value="Product Price"/>
+                        <b:inputText value="#{productManageMB.product.productPrice}" id="productPrice"/>
+                        <b:message for="productPrice"/>
+                    </div>
+                    <div class="col-6">
+                        <b:label value="Product Stock"/>
+                        <b:inputText value="#{productManageMB.product.productStock}" id="productStock"/>
+                        <b:message for="productStock"/>
+                    </div>
+                    <div class="col-6">
+                        <b:label value="Product Image"/>
+                        <c:choose>
+                            <c:when test="#{empty productManageMB.product.productID}">
+                                <h:inputFile value="#{productManageMB.productImg}" id="productImage" required="true" />
+                            </c:when>
+                            <c:otherwise>
+                                <h:inputFile value="#{productManageMB.productImg}" id="productImage" />
+                            </c:otherwise>
+                        </c:choose>
+                        
+                        <b:message for="productImage"/>
+                    </div>
+                    <div class="col-12">
+                        <c:choose>
+                            <c:when test="#{empty productManageMB.product.productID}">
+                                <b:commandButton value="Add" class="w-100" look="success" action="#{productManageMB.addProduct()}" />
+                            </c:when>
+                            <c:otherwise>
+                                <b:commandButton value="Update" class="w-100" look="success" action="#{productManageMB.updateProduct()}"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    
+                </div>
+            </h:form>
+    </h:body>
+</html>

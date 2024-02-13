@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="resources/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+    </h:head>
+    <h:body>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="resources/js/bootstrap.bundle.min.js"
+        ></script>
+        <script>
+            import {Carousel, initMDB, Input } from "mdb-ui-kit";
+
+            initMDB({Carousel, Input});
+        </script>
+
+        <ui:include src="navbar.xhtml" />
+        <h2 class="container d-flex justify-content-around">Manage Products</h2>
+        <h:form class="container mb-3">
+
+            <h:commandLink action="#{productManageMB.showProductAddForm()}">
+                <button type="button" class="btn btn-primary">Add new product</button>
+            </h:commandLink>
+        </h:form>
+        <h:form class="container">
+            <b:dataTable value="#{productManageMB.showAllProduct()}"
+                         var="product" style="font-size: 16px">
+                <b:dataTableColumn label="Image">
+                    <img src="#{product.productImage}" width="50"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn value="#{product.productName}" />
+                <b:dataTableColumn value="#{product.productDescriptions}"/>
+                <b:dataTableColumn value="#{product.productType}" />
+                <b:dataTableColumn value="#{product.productPrice}" />
+                <b:dataTableColumn value="#{product.productStock}" />
+                <b:dataTableColumn label="Action">
+                    <b:commandButton action="#{productManageMB.showProductUpdateForm(product)}" look="success">
+                        <i class="fa-solid fa-edit"></i>
+                    </b:commandButton>
+                    <b:commandButton action="#{productManageMB.deleteProduct(product)}" look="danger" class="ms-2">
+                        <i class="fa-solid fa-trash"></i>
+                    </b:commandButton>
+                </b:dataTableColumn>
+            </b:dataTable>
+        </h:form>
+    </h:body>
+</html>

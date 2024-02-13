@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html"
+                        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                        xmlns:b="http://bootsfaces.net/ui">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-body-tertiary" >
+                <!-- Container wrapper -->
+                <div class="container-fluid">
+                    <!-- Toggle button -->
+
+                    <!-- Collapsible wrapper -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Navbar brand -->
+                        <h:link class="navbar-brand mt-2 mt-lg-0" outcome="index">
+                            <img
+                                src="resources/images/main-logo.png"
+                                alt="MDB Logo"
+                                loading="lazy"
+                                height="20"
+                                />
+                        </h:link>
+                        <!-- Left links -->
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <h:link value="Home" outcome="index" class="text-decoration-none nav-link"/>
+                            </li>
+                            <c:if test="#{loginMB.isAdmin()}">
+                                <li class="nav-item">                               
+                                    <h:link value="Manage Orders" outcome="manageOrder" class="text-decoration-none nav-link"/>
+                                </li>
+                                <li class="nav-item">                               
+                                    <h:link value="Manage Customers" outcome="manageCustomer" class="text-decoration-none nav-link"/>
+                                </li>
+                                <li class="nav-item">                               
+                                    <h:link value="Manage Product" outcome="manageProduct" class="text-decoration-none nav-link"/>
+                                </li>
+                            </c:if>
+                        </ul>
+                        <!-- Left links -->
+                    </div>
+                    <!-- Collapsible wrapper -->
+
+                    <!-- Right elements -->
+                    <div class="d-flex align-items-center">
+                        <c:choose>
+                            <c:when test="#{!loginMB.isLogin()}">
+                                <div class="d-flex align-items-center">
+                                    <h:link outcome="login" >
+                                        <button type="button" class="btn btn-link px-3 me-2 text-decoration-none text-black">
+                                            Login
+                                        </button>
+                                    </h:link>
+
+                                    <h:link outcome="signup">
+                                        <button type="button" class="btn btn-primary me-3">
+                                            Sign up for free
+                                        </button>
+                                    </h:link>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="d-flex align-items-center">
+
+                                    <c:if test="#{!loginMB.isAdmin()}">
+
+                                        <h:link outcome="cart">
+                                            <i class="fas fa-shopping-cart px-3"></i>
+                                        </h:link>
+                                    </c:if>
+                                    <div class="dropdown">
+                                        <a
+                                            class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                                            href="#"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            >
+                                            <img
+                                                src="resources/images/avt.jpg"
+                                                class="rounded-circle"
+                                                height="25"
+                                                alt="Black and White Portrait of a Man"
+                                                loading="lazy"
+                                                />
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <h:form>
+                                                    <h:commandLink class="dropdown-item text-decoration-none" action="#{loginMB.logout()}">Logout</h:commandLink>
+                                                </h:form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </c:otherwise>
+                        </c:choose>
+
+
+
+                    </div>
+                    <!-- Right elements -->
+                </div>
+                <!-- Container wrapper -->
+            </nav>
+            <!-- Navbar -->
+        </ui:composition>
+    </h:body>
+</html>
